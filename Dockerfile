@@ -16,9 +16,10 @@ RUN chmod +w /etc/sudoers
 RUN echo 'term ALL=(ALL) ALL' >> /etc/sudoers
 RUN chmod 0440 /etc/sudoers
 
-RUN echo 'term' | sudo ssserver -c /app/etc/shadowsocks/config.json -d start &
-
 EXPOSE 3000 80 8080 8081
 
-ENTRYPOINT ["node"]
-CMD ["app.js", "-p", "3000"]
+CMD echo 'term' | sudo ssserver -c /app/etc/shadowsocks/config.json -d start &
+
+
+#ENTRYPOINT ["node"]
+#CMD ["app.js", "-p", "3000"]
