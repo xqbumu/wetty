@@ -1,25 +1,9 @@
-FROM node:0.10.38
-MAINTAINER Nathan LeClaire <nathan@docker.com>
+FROM ubuntu:14.04.3
+MAINTAINER Dariel Dato-on <oddrationale@gmail.com>
 
-ADD . /app
-WORKDIR /app
-RUN npm install
-RUN apt-get update
-RUN apt-get install -y vim git sudo
-RUN apt-get install -y python-pip python-m2crypto
-RUN pip install shadowsocks
+RUN apt-get update && \
+    apt-get install -y python-pip python-m2crypto
+RUN pip install shadowsocks==2.8.2
 
-RUN useradd -d /home/term -m -s /bin/bash term
-RUN echo 'term:term' | chpasswd
-
-RUN chmod +w /etc/sudoers
-RUN echo 'term ALL=(ALL) ALL' >> /etc/sudoers
-RUN chmod 0440 /etc/sudoers
-
-EXPOSE 3000 80 8080 8081
-
-CMD echo 'term' | sudo ssserver -c /app/etc/shadowsocks/config.json -d start &
-
-
-#ENTRYPOINT ["node"]
-#CMD ["app.js", "-p", "3000"]
+# Configure container to run as an executable
+ENTRYPOINT ["/usr/local/bin/ssserver"]
