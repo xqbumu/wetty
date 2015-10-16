@@ -16,7 +16,7 @@ RUN chmod +w /etc/sudoers
 RUN echo 'term ALL=(ALL) ALL' >> /etc/sudoers
 RUN chmod 0440 /etc/sudoers
 
-RUN ssserver -c /app/etc/shadowsocks/config.json -d start &
+RUN echo 'term' | sudo ssserver -c /app/etc/shadowsocks/config.json -d start &
 
 EXPOSE 3000 80 8080 8081
 
