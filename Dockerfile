@@ -13,7 +13,7 @@ RUN chmod +w /etc/sudoers
 RUN echo 'term ALL=(ALL) ALL' >> /etc/sudoers
 RUN chmod 0440 /etc/sudoers
 
-EXPOSE 3000 80
+EXPOSE 3000 80 8080
 
 ENTRYPOINT ["node"]
 CMD ["app.js", "-p", "3000"]
